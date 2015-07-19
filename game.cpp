@@ -5,7 +5,7 @@
 * Author:
 *    Jeffry Simpson, Samuel Koontz
 * Summary: 
-*    The driver program for the game of skeet
+*    The driver program for the game of Asteroids
 *
 *    Estimated:  0.0 hrs   
 *    Actual:     0.0 hrs
@@ -22,19 +22,63 @@
 Game::Game() : dx(0.0), 
                dy(0.0),
                refresh(0),
-               orientation(270)   //facing up
-
+               orientation(270)  //facing up
 { 
      
    //Set ship  starting position center of the screen
    ship.setX(0); 
-   ship.setY(0); 
-   
+   ship.setY(0);
+   this->createAsteroidField(); 
    
    // set the skeet start position
    #ifdef DEBUG 
       cout << "Calling Constructor\n";
    #endif
+}
+
+/********************************************
+ * Game :: update
+ * Move the elements on the screen 
+ *******************************************/
+void Game::createAsteroidField()
+{
+for (int i = 0; i < 4; i++)
+	{
+		float x;
+        float y;		
+		SpaceRock spaceRock;
+		spaceRock.setSize(BIGROCK);
+		spaceRock.setRotation(BIGROTATION);
+		spaceRock.setSpeed(getRand(STARTSPEEDMIN,STARTSPEEDMAX));
+        spaceRock.setPoints(BIGPOINTS);
+
+
+		if (getRand(0,1))
+			x = XMAX;
+		else
+			x = XMIN;
+		y = getRand(YMIN, YMAX);
+		if ((x >= XAVG) && (y >= YAVG)) //1st quadrant, needs to go down and left
+			spaceRock.setDirection(getRand(180,270));
+		else if (x < XAVG && y >= YAVG) //2nd quadrant, needs to go down and right
+			spaceRock.setDirection(getRand(270, 364));
+		else if (x < XAVG && y < YAVG) //3rd quadrant, needs to go up and right
+			spaceRock.setDirection(getRand(0,90));
+		else //4th quadrant, needs to go up and left
+			spaceRock.setDirection(getRand(90, 180));
+        spaceRock.setPoint(x,y);
+
+		spaceRocks.push_back(spaceRock);
+#ifdef DEBUG
+			cout << "rock " << i
+       	         << ": Size: " << spaceRocks[i].getSize() 
+                 << " Point: (" << spaceRocks[i].getPoint() 
+                 << ") Direction: " <<spaceRocks[i].getDirection() 
+                 << " Speed: " << spaceRocks[i].getSpeed()
+                 << " Rotation: " <<spaceRocks[i].getRotation()
+                 << endl;
+   #endif		
+	}
 }
 
 /********************************************
@@ -48,7 +92,10 @@ void Game::update(int left, int right, bool spacebar)
    if (left)
       orientation += 5;
 
-
+for (int i = 0; i < spaceRocks.size(); i++)
+{
+   spaceRocks[i].updatePos();
+}
    
 #ifdef DEBUG      //update debug counter on the lower left side of screen
       refresh++;  //tracks we are doing something
@@ -66,7 +113,26 @@ void Game::draw()
    //drawCircle(ship, SKEETRADIUS);
   // drawPolygon(ship, 3, 16, 15);
    drawShip(ship,orientation);
+   for (int i = 0; i < spaceRocks.size(); i++)
+   {
+      //drawCircle(spaceRocks[i].getPoint(), 20);
+      drawPolygon(spaceRocks[i].getPoint(),
+                 (spaceRocks[i].getSize() / 2),
+                 spaceRocks[i].getPoints(),
+                 spaceRocks[i].getTotalRotation());
+
+#ifdef DEBUG
+			//cout << "rock " << i
+       	    //     << ": Size: " << spaceRocks[i].getSize() 
+           //      << " Point: (" << spaceRocks[i].getPoint() 
+           //      << ") Direction: " <<spaceRocks[i].getDirection() 
+           //      << " Speed: " << spaceRocks[i].getSpeed()
+           //      << " Rotation: " <<spaceRocks[i].getRotation()
+           //      << endl;
+   #endif	
    
+   }
+
       //draw refresh
 #ifdef DEBUG
    {
@@ -104,7 +170,8 @@ void callBack(const Interface *pUI, void * p)
  *******************************************/
 int main(int argc, char** argv)
 {
-
+   //vector <SpaceRock> spaceRocks;   
+   srand(time(NULL));
    Interface ui(argc, argv, "Asteroids Classic the Beginning");    // initialize OpenGL
    Game game;                           // initialize the game state
    ui.run(callBack, &game);             // set everything into action

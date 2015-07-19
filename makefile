@@ -18,13 +18,17 @@
 #    pong:         The playable game
 #    uiTest:       Simple driver program for the drawing interface
 ###############################################################
-a.out : game.o uiInteract.o uiDraw.o point.o
-	g++ -o a.out game.o uiInteract.o uiDraw.o point.o -L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
-	tar -cf prj4.tar *.cpp *.h makefile
+a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o
+	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o -lGL -lglut -lGLU -lm -lstdc++ 
+#	#-L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
+#	tar -cf prj4.tar *.cpp *.h makefile
 
-#a.out : pong.o uiInteract.o uiDraw.o point.o
+spaceRockTest.out : spaceRockTest.o point.o
+	g++ -o spaceRock.out spaceRockTest.o point.o -lGL -lglut -lGLU -lm -lstdc++ 
+	
 uiTest : uiTest.o uiDraw.o uiInteract.o point.o
-	g++ -o uiTest uiTest.o uiDraw.o uiInteract.o point.o -L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
+	g++ -o uiTest uiTest.o uiDraw.o uiInteract.o point.o -lGL -lglut -lGLU -lm -lstdc++ 
+	#-L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
 
 ###############################################################
 # Individual files
@@ -43,14 +47,18 @@ uiDraw.o : uiDraw.cpp uiDraw.h point.h
 point.o : point.cpp point.h
 	g++ -c point.cpp
 
+spaceRock.o : spaceRock.cpp spaceRock.h
+	g++ -c spaceRock.cpp
+	
+spaceRockTest.o : spaceRockTest.cpp spaceRock.o point.o
+	g++ -c spaceRockTest.cpp spaceRock.cpp point.cpp
+	
 game.o : game.cpp point.h uiDraw.h uiInteract.h
 	g++ -c game.cpp
 
 uiTest.o : uiTest.cpp point.h uiDraw.h uiInteract.h
 	g++ -c uiTest.cpp
 
-pong.o : pong.cpp uiDraw.h uiInteract.h point.h
-	g++ -c pong.cpp
 
 
 ###############################################################
@@ -59,5 +67,5 @@ pong.o : pong.cpp uiDraw.h uiInteract.h point.h
 clean :
 	rm a.out *.o *.tar
 
-all :  uiTest pong a.out
+all :  uiTest a.out
 
