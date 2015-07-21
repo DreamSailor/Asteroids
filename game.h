@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <math.h>
 #include "spaceRock.h"
+#include "spaceShip.h"
 #include <vector>
 #include <ctime>
 #include <cstdlib>
@@ -65,7 +66,7 @@ class Game
    public:
       Game();
 	  void createAsteroidField();         
-      void update(int left, int right, bool spacebar);
+      void update(int left, int right, int up, bool spacebar);
       void draw();
 	  int getRand(int min, int max) {return (rand() % (max-min+1)+min);}
       int getRand(double min, double max) {return (int)(rand() % ((int)max - (int)min + 1) + (int)min);}
@@ -74,9 +75,10 @@ class Game
     private:      
         vector<SpaceRock> spaceRocks;
         Point ship;         // Ship 
+		SpaceShip spaceShip; // spaceship class
         int orientation;     //ship orientation
-        float dx;     // horizontal velocity of the skeet
-        float dy;     // vertical velocity of the skeet
+        float dx;     // horizontal velocity of the spaceShip
+        float dy;     // vertical velocity of the spaceShip
       
         int refresh;      // screen refresh for debug
       

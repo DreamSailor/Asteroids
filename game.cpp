@@ -26,8 +26,8 @@ Game::Game() : dx(0.0),
 { 
      
    //Set ship  starting position center of the screen
-   ship.setX(0); 
-   ship.setY(0);
+   spaceShip.setX(0); 
+   spaceShip.setY(0);
    this->createAsteroidField(); 
    
    // set the skeet start position
@@ -85,12 +85,14 @@ for (int i = 0; i < 4; i++)
  * Game :: update
  * Move the elements on the screen 
  *******************************************/
-void Game::update(int left, int right, bool spacebar)
+void Game::update(int left, int right, int up, bool spacebar)
 {
    if (right)
-      orientation -= 5;
+      spaceShip.totalRotation -= 5;
    if (left)
       orientation += 5;
+   if (up)
+      ;
 
 for (int i = 0; i < spaceRocks.size(); i++)
 {
@@ -112,7 +114,7 @@ void Game::draw()
 
    //drawCircle(ship, SKEETRADIUS);
   // drawPolygon(ship, 3, 16, 15);
-   drawShip(ship,orientation);
+   drawShip(spaceShip.getPoint(),orientation);
    for (int i = 0; i < spaceRocks.size(); i++)
    {
       //drawCircle(spaceRocks[i].getPoint(), 20);
@@ -158,7 +160,7 @@ void callBack(const Interface *pUI, void * p)
    Game * pGame = (Game *)p;  // cast the void pointer into a known type
      
    // advance the ball
-   pGame->update(pUI->isLeft(), pUI->isRight(), pUI->isSpace());
+   pGame->update(pUI->isLeft(), pUI->isRight(), pUI-> isUp(), pUI->isSpace());
  
    // draw it
    pGame->draw();

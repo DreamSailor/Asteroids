@@ -18,8 +18,8 @@
 #    pong:         The playable game
 #    uiTest:       Simple driver program for the drawing interface
 ###############################################################
-a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o
-	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o -lGL -lglut -lGLU -lm -lstdc++ 
+a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o
+	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o -lGL -lglut -lGLU -lm -lstdc++ 
 #	#-L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
 #	tar -cf prj4.tar *.cpp *.h makefile
 
@@ -49,6 +49,9 @@ point.o : point.cpp point.h
 
 spaceRock.o : spaceRock.cpp spaceRock.h
 	g++ -c spaceRock.cpp
+
+spaceShip.o : spaceShip.cpp spaceShip.h
+	g++ -c spaceShip.cpp
 	
 spaceRockTest.o : spaceRockTest.cpp spaceRock.o point.o
 	g++ -c spaceRockTest.cpp spaceRock.cpp point.cpp
