@@ -27,7 +27,7 @@ Game::Game() : dx(0.0),
    //Set ship  starting position center of the screen
    spaceShip.setX(0); 
    spaceShip.setY(0);
-   spaceShip.setHeading(270);
+   spaceShip.setHeading(0);
    spaceShip.setSpeed(.2);
    this->createAsteroidField(); 
    
@@ -118,7 +118,8 @@ void Game::draw()
 {
 
    //drawCircle(ship, SKEETRADIUS);
-  // drawPolygon(ship, 3, 16, 15);
+   //drawPolygon(spaceShip.getPoint(), 6, 3, spaceShip.getHeading());
+
    drawShip(spaceShip.getPoint(),spaceShip.getHeading());
    for (int i = 0; i < spaceRocks.size(); i++)
    {
