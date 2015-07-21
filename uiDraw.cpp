@@ -16,8 +16,8 @@
 #include <cassert>    // I feel the need... the need for asserts
 #include <time.h>     // for clock
 
-//#define LINUX
-#define MAC_XCODE
+#define LINUX
+//#define MAC_XCODE
 //#define WIN_VISUAL_STUDIO
 
 #ifdef MAC_XCODE
@@ -269,6 +269,7 @@ void drawPolygon(const Point & center, int radius, int points, int rotation)
    for (double i = 0; i < 2 * M_PI; i += (2 * M_PI) / points)
    {
       Point temp(false /*check*/);
+      temp.setWrap(false);
       temp.setX(center.getX() + (radius * cos(i)));
       temp.setY(center.getY() + (radius * sin(i)));
       rotate(temp, center, rotation);
