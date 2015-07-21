@@ -12,6 +12,8 @@
 *      Please describe briefly what was the most difficult part.
 ************************************************************************/
 
+#include "spaceShip.h"
+#include "spaceRock.h"
 #include "game.h"
 
 /***************************************************

@@ -19,13 +19,13 @@
 #    uiTest:       Simple driver program for the drawing interface
 ###############################################################
 # Linux
-#a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o
-#	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o -lGL -lglut -lGLU -lm -lstdc++ 
+#a.out : game.o uiInteract.o uiDraw.o point.o
+#	g++ -o a.out game.o uiInteract.o uiDraw.o point.o  -lGL -lglut -lGLU -lm -lstdc++ 
 #	tar -cf prj4.tar *.cpp *.h makefile
 
 #Mac
-a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o
-	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o -L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
+a.out : game.o uiInteract.o uiDraw.o point.o
+	g++ -o a.out game.o uiInteract.o uiDraw.o point.o -L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
 
 #	tar -cf prj4.tar *.cpp *.h makefile
 
@@ -54,20 +54,20 @@ uiDraw.o : uiDraw.cpp uiDraw.h point.h
 point.o : point.cpp point.h
 	g++ -c point.cpp
 
-spaceRock.o : spaceRock.cpp spaceRock.h
-	g++ -c spaceRock.cpp
-
-spaceShip.o : spaceShip.cpp spaceShip.h
-	g++ -c spaceShip.cpp
-	
-spaceRockTest.o : spaceRockTest.cpp spaceRock.o point.o
-	g++ -c spaceRockTest.cpp spaceRock.cpp point.cpp
-	
-game.o : game.cpp point.h uiDraw.h uiInteract.h
+game.o : game.cpp point.h spaceShip.h spaceRock.h uiDraw.h uiInteract.h
 	g++ -c game.cpp
 
-uiTest.o : uiTest.cpp point.h uiDraw.h uiInteract.h
-	g++ -c uiTest.cpp
+#spaceRock.o : spaceRock.cpp spaceRock.h
+#	g++ -c spaceRock.cpp
+
+#spaceShip.o : spaceShip.cpp spaceShip.h
+#	g++ -c spaceShip.cpp
+	
+#spaceRockTest.o : spaceRockTest.cpp spaceRock.o point.o
+#	g++ -c spaceRockTest.cpp spaceRock.cpp point.cpp
+	
+#uiTest.o : uiTest.cpp point.h uiDraw.h uiInteract.h
+#	g++ -c uiTest.cpp
 
 
 
