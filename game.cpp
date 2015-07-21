@@ -23,18 +23,21 @@ Game::Game() : dx(0.0),
                dy(0.0),
                refresh(0)
 { 
-     
-   //Set ship  starting position center of the screen
-   spaceShip.setX(0); 
-   spaceShip.setY(0);
-   spaceShip.setHeading(0);
-   spaceShip.setSpeed(.2);
-   this->createAsteroidField(); 
    
-   // set the skeet start position
    #ifdef DEBUG 
       cout << "Calling Constructor\n";
    #endif
+
+   //Set ship  starting position center of the screen
+   spaceShip.setX(0); 
+   spaceShip.setY(0);
+   //spaceShip.setHeading(0);
+   spaceShip.setDirection(270);
+   spaceShip.setSpeed(.2);
+   this->createAsteroidField(); 
+   
+
+      
 }
 
 /********************************************
@@ -45,8 +48,8 @@ void Game::createAsteroidField()
 {
 for (int i = 0; i < 4; i++)
 	{
-		float x;
-        float y;		
+            float x;
+            float y;		
 		SpaceRock spaceRock;
 		spaceRock.setSize(BIGROCK);
 		spaceRock.setRotation(BIGROTATION);
@@ -71,12 +74,12 @@ for (int i = 0; i < 4; i++)
 
 		spaceRocks.push_back(spaceRock);
 #ifdef DEBUG
-			cout << "rock " << i
+		cout << "rock " << i
        	         << ": Size: " << spaceRocks[i].getSize() 
                  << " Point: (" << spaceRocks[i].getPoint() 
                  << ") Direction: " <<spaceRocks[i].getDirection() 
                  << " Speed: " << spaceRocks[i].getSpeed()
-                 << " Rotation: " <<spaceRocks[i].getRotation()
+                 << " Rotations: " <<spaceRocks[i].getRotation()
                  << endl;
    #endif		
 	}
@@ -91,9 +94,9 @@ void Game::update(int left, int right, int up, bool spacebar)
 {
 //update space ship
    if (right)
-      spaceShip.changeHeading(-10);
+      spaceShip.changeDirection(-10);
    if (left)
-      spaceShip.changeHeading(10);
+      spaceShip.changeDirection(10);
    if (up)
       spaceShip.updateCourse();
 
@@ -120,7 +123,7 @@ void Game::draw()
    //drawCircle(ship, SKEETRADIUS);
    //drawPolygon(spaceShip.getPoint(), 6, 3, spaceShip.getHeading());
 
-   drawShip(spaceShip.getPoint(),spaceShip.getHeading());
+   drawShip(spaceShip.getPoint(),spaceShip.getDirection());
    for (int i = 0; i < spaceRocks.size(); i++)
    {
       //drawCircle(spaceRocks[i].getPoint(), 20);
@@ -160,12 +163,11 @@ void Game::draw()
  **************************************/
 void callBack(const Interface *pUI, void * p)
 {
-   
- 
-   
+
+
    Game * pGame = (Game *)p;  // cast the void pointer into a known type
-     
-   // advance the ball
+    
+   // advance the game
    pGame->update(pUI->isLeft(), pUI->isRight(), pUI-> isUp(), pUI->isSpace());
  
    // draw it
@@ -182,6 +184,7 @@ int main(int argc, char** argv)
    srand(time(NULL));
    Interface ui(argc, argv, "Asteroids Classic the Beginning");    // initialize OpenGL
    Game game;                           // initialize the game state
+
    ui.run(callBack, &game);             // set everything into action
 
    return 0;

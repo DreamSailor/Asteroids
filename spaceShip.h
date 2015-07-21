@@ -16,8 +16,10 @@
 #ifndef SPACESHIP_H
 #define SPACESHIP_H
 #include <iostream>
-#include <stdio.h>
+#include <cassert>
+#include <cmath>
 #include <math.h>
+#include <stdio.h>
 #include "point.h"
 
 #define deg2rad(value) ((M_PI / 180) * (value))
@@ -36,7 +38,7 @@ public:
    SpaceShip() : speed(0.0) {}
    
    int getDirection() {return direction;}
-   int getHeading() {return heading;}
+   //int getHeading() {return heading;}
    float getSpeed() {return speed;}
    int getDX() {return dx;}
    int getDY() {return dy;}
@@ -50,15 +52,16 @@ public:
    void addSpeed(float increase) {this->speed += increase;}
    void setDirection(int direction) {this->direction = direction;}
    void changeDirection(int direction) {this->direction += direction;}
-   void setHeading(int heading) {this->heading = heading;}
-   void changeHeading(int change) {this->heading += change;} 
+   //void setHeading(int heading) {this->heading = heading;}
+   //void changeHeading(int change) {this->heading += change;} 
    void setPoint(float x, float y) {point.setX(x);
                                     point.setY(y);}
-   void updateCourse()
-{
-   this->addDX(0*speed);
-   this->addDY((1)*speed);  
-} 
+    void updateCourse()
+    {
+
+        this->addDX(0.2 * cos(deg2rad(direction - 180))*speed);
+        this->addDY(0.2 * sin(deg2rad(direction - 180))*speed);
+    } 
 
    void updatePos()
 {
@@ -66,6 +69,8 @@ public:
    this->point.addX(this->dx);
    this->point.addY(this->dy);
 }
+   
+   
    const SpaceShip & operator = (const SpaceShip & rhs) //   const Point & operator = (const Point & rhs);
 {
 	this->point = rhs.point;
@@ -78,13 +83,13 @@ public:
 }
 
 protected:
-	Point point;
+    Point point;
     float dx;
     float dy;
-	int size;
-	int direction;
-    int heading;
-	float speed;
+    int size;
+    int direction;
+    //int heading;
+    float speed;
 };
 
 

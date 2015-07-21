@@ -18,16 +18,23 @@
 #    pong:         The playable game
 #    uiTest:       Simple driver program for the drawing interface
 ###############################################################
-a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o
-	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o -lGL -lglut -lGLU -lm -lstdc++ 
-#	#-L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
+# Linux
+#a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o
+#	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o -lGL -lglut -lGLU -lm -lstdc++ 
 #	tar -cf prj4.tar *.cpp *.h makefile
 
-spaceRockTest.out : spaceRockTest.o point.o
-	g++ -o spaceRock.out spaceRockTest.o point.o -lGL -lglut -lGLU -lm -lstdc++ 
+#Mac
+a.out : game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o
+	g++ -o a.out game.o uiInteract.o uiDraw.o point.o spaceRock.o spaceShip.o -L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
+
+#	tar -cf prj4.tar *.cpp *.h makefile
+
+#Test Builds
+#spaceRockTest.out : spaceRockTest.o point.o
+#	g++ -o spaceRock.out spaceRockTest.o point.o -lGL -lglut -lGLU -lm -lstdc++ 
 	
-uiTest : uiTest.o uiDraw.o uiInteract.o point.o
-	g++ -o uiTest uiTest.o uiDraw.o uiInteract.o point.o -lGL -lglut -lGLU -lm -lstdc++ 
+#uiTest : uiTest.o uiDraw.o uiInteract.o point.o
+#	g++ -o uiTest uiTest.o uiDraw.o uiInteract.o point.o -lGL -lglut -lGLU -lm -lstdc++ 
 	#-L/System/Library/Frameworks -framework GLUT -L/System/Library/Frameworks -framework OpenGL
 
 ###############################################################
@@ -68,7 +75,8 @@ uiTest.o : uiTest.cpp point.h uiDraw.h uiInteract.h
 # General rules
 ###############################################################
 clean :
-	rm a.out *.o *.tar
+	rm a.out *.o
+#	rm a.out *.o *.tar
 
 all :  uiTest a.out
 
