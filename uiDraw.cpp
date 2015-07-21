@@ -332,6 +332,10 @@ void drawShip(const Point & center, int rotation)
    Point stern(    center); // back
    Point starboard(center); // right
    Point port(     center); // left
+   bow.setWrap(false);
+   stern.setWrap(false);
+   starboard.setWrap(false);
+   port.setWrap(false);
 
    bow.addX(-6);
 
