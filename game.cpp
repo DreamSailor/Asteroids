@@ -21,13 +21,14 @@
  ***************************************************/
 Game::Game() : dx(0.0), 
                dy(0.0),
-               refresh(0),
-               orientation(270)  //facing up
+               refresh(0)
 { 
      
    //Set ship  starting position center of the screen
    spaceShip.setX(0); 
    spaceShip.setY(0);
+   spaceShip.setHeading(270);
+   spaceShip.setSpeed(.2);
    this->createAsteroidField(); 
    
    // set the skeet start position
@@ -37,8 +38,8 @@ Game::Game() : dx(0.0),
 }
 
 /********************************************
- * Game :: update
- * Move the elements on the screen 
+ * Game :: createAsteroidField
+ * Sets up the initial asteroids 
  *******************************************/
 void Game::createAsteroidField()
 {
@@ -86,18 +87,22 @@ for (int i = 0; i < 4; i++)
  * Move the elements on the screen 
  *******************************************/
 void Game::update(int left, int right, int up, bool spacebar)
-{
-   if (right)
-      spaceShip.totalRotation -= 5;
-   if (left)
-      orientation += 5;
-   if (up)
-      ;
 
-for (int i = 0; i < spaceRocks.size(); i++)
 {
-   spaceRocks[i].updatePos();
-}
+//update space ship
+   if (right)
+      spaceShip.changeHeading(-10);
+   if (left)
+      spaceShip.changeHeading(10);
+   if (up)
+      spaceShip.updateCourse();
+
+   spaceShip.updatePos();
+
+   for (int i = 0; i < spaceRocks.size(); i++)
+   {
+      spaceRocks[i].updatePos();
+   }
    
 #ifdef DEBUG      //update debug counter on the lower left side of screen
       refresh++;  //tracks we are doing something
@@ -114,7 +119,7 @@ void Game::draw()
 
    //drawCircle(ship, SKEETRADIUS);
   // drawPolygon(ship, 3, 16, 15);
-   drawShip(spaceShip.getPoint(),orientation);
+   drawShip(spaceShip.getPoint(),spaceShip.getHeading());
    for (int i = 0; i < spaceRocks.size(); i++)
    {
       //drawCircle(spaceRocks[i].getPoint(), 20);
