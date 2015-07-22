@@ -80,6 +80,7 @@ class Game
     private:      
         vector<SpaceRock> spaceRocks;
         vector<Bullet> bullets;
+        Point boom[15];
         Point frameCount; 
 		SpaceShip spaceShip; // spaceship class
         //int orientation;     //ship orientation

@@ -35,10 +35,7 @@ Game::Game() : refresh(0), score(0)
    spaceShip.setDirection(270);
    spaceShip.setSpeed(.2);
    spaceShip.resurrect();
-   this->createAsteroidField(); 
-   
-
-      
+   this->createAsteroidField();       
 }
 
 /********************************************
@@ -121,8 +118,10 @@ void Game::update(int left, int right, int up, bool spacebar)
       {
          Bullet bullet;
          bullet.setPoint(spaceShip.getX(), spaceShip.getY());
-         bullet.setDX(spaceShip.getDX());
-         bullet.setDY(spaceShip.getDY());
+         //bullet.setDX(spaceShip.getDX());
+         //bullet.setDY(spaceShip.getDY());
+         bullet.setDirection(spaceShip.getDirection());
+         bullet.updateCourse();
          bullets.push_back(bullet);
       }
 
@@ -197,7 +196,6 @@ void Game::update(int left, int right, int up, bool spacebar)
       if(spaceRocks.size()<4)
       {
          this->createNewAsteroid();
-         cout << "new\n";
       }
 
       //What's the matta, those asteroids get ya?
@@ -214,13 +212,12 @@ void Game::update(int left, int right, int up, bool spacebar)
    {
       spaceRocks.clear();
       bullets.clear();
-
    }
 
 
-#ifdef DEBUG      //update debug counter on the lower left side of screen
+      //update debug counter on the lower left side of screen
       refresh++;  //tracks we are doing something
-#endif
+
  
 }
 
@@ -235,8 +232,9 @@ void Game::draw()
       drawShip(spaceShip.getPoint(),spaceShip.getDirection());
    else
    {
-      Point dead(-100, 10);
-      drawText 
+      Point dead(-150, 10);
+      drawText(dead, "No one can hear you scream in space");
+   } 
 
    //draw the asteroid field
    for (int i = 0; i < spaceRocks.size(); i++)
