@@ -43,6 +43,7 @@ public:
    float getY()                        {return this->point.getY();}
    float getDX()                       {return dx;}
    float getDY()                       {return dy;}
+   bool getIsDead()                    {return this->point.isDead();}
    Point getPoint()                    {return point;}
    void setSize(int size)              {this->size = size;}
    void setX(float x)                  {this->point.setX(x);}
