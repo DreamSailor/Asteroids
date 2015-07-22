@@ -13,8 +13,8 @@
 ************************************************************************/
 
 
-#ifndef SPACESHIP_H
-#define SPACESHIP_H
+#ifndef BULLET_H
+#define BULLET_H
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -27,15 +27,16 @@
 using namespace std;
 
 /*****************************************
- * SHIP
+ * Bullet
  * The ship class.  
  * 
  *****************************************/
-class SpaceShip: public Point
+class Bullet: public Point
 {
 public:
 
-   SpaceShip() : speed(0.0) {}
+   Bullet() : speed(0.0) {this->point.setWrap(false);
+                          this->point.setCheck(true);}
    
    int getDirection()                  {return direction;}
    float getSpeed()                    {return speed;}
@@ -43,44 +44,45 @@ public:
    float getY()                        {return this->point.getY();}
    float getDX()                       {return dx;}
    float getDY()                       {return dy;}
-   bool getIsDead()                    {return this->point.isDead();}
    Point getPoint()                    {return point;}
+   bool getIsDead()                    {return this->point.isDead();}
    void setSize(int size)              {this->size = size;}
-   void setX(float x)                  {this->point.setX(x);}
-   void setY(float y)                  {this->point.setY(y);}
-   void setDX(float dx)                {this->dx = dx;}
-   void setDY(float dy)                {this->dy = dy;}
+   void setDX(int dx)                  {this->dx = dx;}
+   void setDY(int dy)                  {this->dy = dy;}
    void addDX(float dx)                {this->dx +=dx;}
    void addDY(float dy)                {this->dy +=dy;}
    void setSpeed(float speed)          {this->speed = speed;}
    void addSpeed(float increase)       {this->speed += increase;}
    void setDirection(int direction)    {this->direction = direction;}
    void changeDirection(int direction) {this->direction += direction;}
+   void kill()                         {this->point.kill();}
    void setPoint(float x, float y)     {this->point.setX(x);
                                         this->point.setY(y);}
     void updateCourse()
     {
-        this->addDX(speed * cos(deg2rad(direction - 180)));
-        this->addDY(speed * sin(deg2rad(direction - 180)));
+
+        this->addDX(3 * cos(deg2rad(direction - 180)));
+        this->addDY(3 * sin(deg2rad(direction - 180)));
     } 
 
    void updatePos()
-   {  
-      this->point.addX(this->dx);
-      this->point.addY(this->dy);
-   }
+{
+      
+   this->point.addX(this->dx);
+   this->point.addY(this->dy);
+}
    
    
-   const SpaceShip & operator = (const SpaceShip & rhs) 
-   {
-      this->point = rhs.point;
-      this->size = rhs.size;
-      this->dx = rhs.dx;
-      this->dy = rhs.dy;
-      this->direction = rhs.direction;
-      this->speed = rhs.speed;
-      return *this;
-   }
+   const Bullet & operator = (const Bullet & rhs) 
+{
+	this->point = rhs.point;
+    this->size = rhs.size;
+    this->dx = rhs.dx;
+    this->dy = rhs.dy;
+    this->direction = rhs.direction;
+    this->speed = rhs.speed;
+    return *this;
+}
 
 protected:
     Point point;

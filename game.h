@@ -28,6 +28,7 @@
 #include <math.h>
 #include "spaceRock.h"
 #include "spaceShip.h"
+#include "bullet.h"
 #include <vector>
 #include <ctime>
 #include <cstdlib>
@@ -51,6 +52,9 @@ using namespace std;
 #define BIGPOINTS 10
 #define MEDPOINTS 12
 #define SMPOINTS 16
+#define BIGSCORE 100
+#define MEDSCORE 300
+#define SMSCORE 500
 
 float Point::xMin = XMIN;
 float Point::xMax =  XMAX;
@@ -65,7 +69,8 @@ class Game
 {
    public:
       Game();
-	  void createAsteroidField();         
+	  void createAsteroidField();  
+      void createNewAsteroid();       
       void update(int left, int right, int up, bool spacebar);
       void draw();
 	  int getRand(int min, int max) {return (rand() % (max-min+1)+min);}
@@ -74,12 +79,14 @@ class Game
       
     private:      
         vector<SpaceRock> spaceRocks;
-        Point ship;         // Ship 
+        vector<Bullet> bullets;
+        Point boom[15];
+        Point frameCount; 
 		SpaceShip spaceShip; // spaceship class
-        int orientation;     //ship orientation
-        float dx;     // horizontal velocity of the spaceShip
-        float dy;     // vertical velocity of the spaceShip
-      
+        //int orientation;     //ship orientation
+        //float dx;     // horizontal velocity of the spaceShip
+        //float dy;     // vertical velocity of the spaceShip
+        int score;
         int refresh;      // screen refresh for debug
       
 };
