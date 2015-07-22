@@ -28,6 +28,7 @@
 #include <math.h>
 #include "spaceRock.h"
 #include "spaceShip.h"
+#include "bullet.h"
 #include <vector>
 #include <ctime>
 #include <cstdlib>
@@ -74,7 +75,8 @@ class Game
       
     private:      
         vector<SpaceRock> spaceRocks;
-        Point ship;         // Ship 
+        vector<Bullet> bullets;
+        Point frameCount; 
 		SpaceShip spaceShip; // spaceship class
         int orientation;     //ship orientation
         float dx;     // horizontal velocity of the spaceShip

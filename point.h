@@ -41,10 +41,10 @@ public:
    bool  getWrap()    const { return wrap;           }
 
    // setters
-   void setX(float x);
-   void setY(float y);
-   void addX(float dx)      { setX(getX() + dx);     }
-   void addY(float dy)      { setY(getY() + dy);     }
+   void setX(float x)       { setX(x);               }
+   void setY(float y)       { setY(y);               }
+   void addX(float dx)      { setX(getX() + dx);      }
+   void addY(float dy)      { setY(getY() + dy);      }
    void setCheck(bool f)    { check = f;             }
    void setWrap(bool f)     { wrap = f;              }
    void kill()              { dead = true;           }
