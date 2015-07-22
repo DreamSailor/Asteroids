@@ -61,8 +61,8 @@ public:
     void updateCourse()
     {
 
-        this->setDX(3 * cos(deg2rad(direction - 180)));
-        this->setDY(3 * sin(deg2rad(direction - 180)));
+        this->addDX(3 * cos(deg2rad(direction - 180)));
+        this->addDY(3 * sin(deg2rad(direction - 180)));
     } 
 
    void updatePos()

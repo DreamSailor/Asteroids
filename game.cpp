@@ -118,8 +118,8 @@ void Game::update(int left, int right, int up, bool spacebar)
       {
          Bullet bullet;
          bullet.setPoint(spaceShip.getX(), spaceShip.getY());
-         //bullet.setDX(spaceShip.getDX());
-         //bullet.setDY(spaceShip.getDY());
+         bullet.setDX(spaceShip.getDX());
+         bullet.setDY(spaceShip.getDY());
          bullet.setDirection(spaceShip.getDirection());
          bullet.updateCourse();
          bullets.push_back(bullet);
@@ -203,7 +203,8 @@ void Game::update(int left, int right, int up, bool spacebar)
       {
          if(spaceRocks[i].isHit(spaceShip.getX(), spaceShip.getY()))
          {
-            spaceShip.kill();
+            //spaceShip.kill();
+;
          }
       }
    
