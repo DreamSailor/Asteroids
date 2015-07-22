@@ -203,8 +203,7 @@ void Game::update(int left, int right, int up, bool spacebar)
       {
          if(spaceRocks[i].isHit(spaceShip.getX(), spaceShip.getY()))
          {
-            //spaceShip.kill();
-;
+            spaceShip.kill();
          }
       }
    
