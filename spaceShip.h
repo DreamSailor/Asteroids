@@ -58,6 +58,7 @@ public:
    void changeDirection(int direction) {this->direction += direction;}
    void setPoint(float x, float y)     {this->point.setX(x);
                                         this->point.setY(y);}
+   //void killShip()                     {this->point.kill();}
     void updateCourse()
     {
         this->addDX(speed * cos(deg2rad(direction - 180)));

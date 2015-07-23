@@ -20,7 +20,7 @@
 ###############################################################
  #Linux
 a.out : game.o uiInteract.o uiDraw.o point.o
-	g++ -o a.out game.o uiInteract.o uiDraw.o point.o  -lGL -lglut -lGLU -lm -lstdc++ 
+	g++ -o a.out game.o uiInteract.o uiDraw.o point.o  -lGL -lglut -lGLU -lm -lstdc++ -Wall -g
 #	tar -cf prj4.tar *.cpp *.h makefile
 
 #Mac

@@ -66,6 +66,9 @@ void Game::createNewAsteroid()
       spaceRock.setDirection(getRand(90, 180));
    spaceRock.setPoint(x,y);
    spaceRocks.push_back(spaceRock);
+   #ifdef DEBUG 
+      cout << "calling create new asteroid\n";
+   #endif
 }
 
 /********************************************
@@ -107,6 +110,9 @@ void Game::createAsteroidField()
 void Game::update(int left, int right, int up, bool spacebar)
 
 {
+   #ifdef DEBUG 
+      cout << "Calling Update\n";
+   #endif
       //update space ship
       if (right)
          spaceShip.changeDirection(-10);
@@ -126,7 +132,9 @@ void Game::update(int left, int right, int up, bool spacebar)
       }
 
       spaceShip.updatePos();
-
+   #ifdef DEBUG 
+      cout << "Ship Position updated\n";
+   #endif
    
    
       //update position of each bullet
@@ -138,10 +146,21 @@ void Game::update(int left, int right, int up, bool spacebar)
             bullets.erase(bullets.begin() + i);
          }
       }
+
+   #ifdef DEBUG 
+      cout << "Bullet updated\n";
+   #endif
+
       //checks if shot hits, and creates resulting asteroids
       for (int i = 0; i < spaceRocks.size(); i++)
       {
+   #ifdef DEBUG 
+      cout << "spaceRocks[" << i <<"]\n";
+   #endif
          spaceRocks[i].updatePos();
+   #ifdef DEBUG 
+      cout << "spaceRocks[" << i <<"] updated\n";
+   #endif
          for (int j = 0; j < bullets.size(); j++)
          {
             if(spaceRocks[i].isHit(bullets[j].getX(), bullets[j].getY()))
@@ -192,20 +211,32 @@ void Game::update(int left, int right, int up, bool spacebar)
             }
          }
       }
+
+   #ifdef DEBUG 
+      cout << "check for hit\n";
+   #endif
+
       //adds additional asteroids if there are less than 4
-      if(spaceRocks.size()<4)
+      if(spaceRocks.size()<4 && !spaceShip.isDead())
       {
          this->createNewAsteroid();
       }
+
+   #ifdef DEBUG 
+      cout << "After New Asteroid\n";
+   #endif
 
       //What's the matta, those asteroids get ya?
       for (int i = 0; i < spaceRocks.size(); i++)
       {
          if(spaceRocks[i].isHit(spaceShip.getX(), spaceShip.getY()))
          {
-            spaceShip.kill();
+           spaceShip.kill();
          }
       }
+   #ifdef DEBUG 
+      cout << "After ship hit\n";
+   #endif
    
    //you died!
    if (spaceShip.isDead())
@@ -218,7 +249,9 @@ void Game::update(int left, int right, int up, bool spacebar)
       //update debug counter on the lower left side of screen
       refresh++;  //tracks we are doing something
 
- 
+    #ifdef DEBUG 
+      cout << "end of update\n";
+   #endif
 }
 
 /*************************************************
@@ -294,7 +327,9 @@ void callBack(const Interface *pUI, void * p)
     
    // advance the game
    pGame->update(pUI->isLeft(), pUI->isRight(), pUI-> isUp(), pUI->isSpace());
- 
+    #ifdef DEBUG 
+      cout << "return from update\n";
+   #endif
    // draw it
    pGame->draw();
 }
