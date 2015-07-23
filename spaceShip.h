@@ -35,7 +35,12 @@ class SpaceShip: public Point
 {
 public:
 
-   SpaceShip() : speed(0.0) {}
+   SpaceShip() : dx(0.0), 
+                 dy(0.0),  
+                 direction (0)
+                 {this->point.setCheck(true);
+                  this->point.setX(0.0);
+                  this->point.setY(0.0);}
    
    int getDirection()                  {return direction;}
    float getSpeed()                    {return speed;}
@@ -45,7 +50,6 @@ public:
    float getDY()                       {return dy;}
    bool getIsDead()                    {return this->point.isDead();}
    Point getPoint()                    {return point;}
-   void setSize(int size)              {this->size = size;}
    void setX(float x)                  {this->point.setX(x);}
    void setY(float y)                  {this->point.setY(y);}
    void setDX(float dx)                {this->dx = dx;}
@@ -75,7 +79,6 @@ public:
    const SpaceShip & operator = (const SpaceShip & rhs) 
    {
       this->point = rhs.point;
-      this->size = rhs.size;
       this->dx = rhs.dx;
       this->dy = rhs.dy;
       this->direction = rhs.direction;
@@ -87,7 +90,6 @@ protected:
     Point point;
     float dx;
     float dy;
-    int size;
     int direction;
     float speed;
 };
