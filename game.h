@@ -69,6 +69,7 @@ class Game
 {
    public:
       Game();
+      ~Game() {;}
 	  void createAsteroidField();  
       void createNewAsteroid();       
       void update(int left, int right, int up, bool spacebar);

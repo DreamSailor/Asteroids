@@ -34,7 +34,6 @@ class SpaceRock: public Point
 public:
 
    SpaceRock() : size(1) {this->point.setCheck(true);}
-   
    int getSize()                    {return size;}
    int getDirection()               {return direction;}
    int getSpeed()                   {return speed;}
@@ -59,11 +58,10 @@ public:
    void setPoints (int points)      {this->points = points;}
    void setTotalRotation(int r)     {this->totalRotation = r;}
    void updatePos()
-{
+{   
    this->point.addX((sin(deg2rad(direction))*speed) + dx);
    this->point.addY((cos(deg2rad(direction))*speed) + dy);
    this->totalRotation += this->rotation; 
-;
 }
    const SpaceRock & operator = (const SpaceRock & rhs) //   const Point & operator = (const Point & rhs);
 {
