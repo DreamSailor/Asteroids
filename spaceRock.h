@@ -33,7 +33,16 @@ class SpaceRock: public Point
 {
 public:
 
-   SpaceRock() : size(1) {this->point.setCheck(true);}
+   SpaceRock() : size(1), 
+                 dx(0.0), 
+                 dy(0.0), 
+                 points(0), 
+                 direction (0), 
+                 rotation (0), 
+                 totalRotation(0) 
+                 {this->point.setCheck(true);
+                  this->point.setX(0.0);
+                  this->point.setY(0.0);}	
    int getSize()                    {return size;}
    int getDirection()               {return direction;}
    int getSpeed()                   {return speed;}

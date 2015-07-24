@@ -35,9 +35,14 @@ class Bullet: public Point
 {
 public:
 
-   Bullet() : speed(0.0) {this->point.setWrap(false);
-                          this->point.setCheck(true);}
-   
+   Bullet() : speed(0.0), 
+                 dx(0.0), 
+                 dy(0.0), 
+                 direction (0) 
+                 {this->point.setCheck(true);
+                  this->point.setWrap(false);
+                  this->point.setX(0.0);
+                  this->point.setY(0.0);}
    int getDirection()                  {return direction;}
    float getSpeed()                    {return speed;}
    float getX()                        {return this->point.getX();}
@@ -46,7 +51,6 @@ public:
    float getDY()                       {return dy;}
    Point getPoint()                    {return point;}
    bool getIsDead()                    {return this->point.isDead();}
-   void setSize(int size)              {this->size = size;}
    void setDX(int dx)                  {this->dx = dx;}
    void setDY(int dy)                  {this->dy = dy;}
    void addDX(float dx)                {this->dx +=dx;}
@@ -76,7 +80,6 @@ public:
    const Bullet & operator = (const Bullet & rhs) 
 {
 	this->point = rhs.point;
-    this->size = rhs.size;
     this->dx = rhs.dx;
     this->dy = rhs.dy;
     this->direction = rhs.direction;
@@ -88,7 +91,6 @@ protected:
     Point point;
     float dx;
     float dy;
-    int size;
     int direction;
     float speed;
 };
